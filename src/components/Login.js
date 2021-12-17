@@ -8,10 +8,12 @@ import Swal from 'sweetalert2'
 import sendRequest from '../httpClient'
 import { setLogged } from '../store/userSlice'
 import Loader from './Loader'
+import { useNavigate } from 'react-router';
 
 const Login = () => {
     let changed = false
     const [isLoading, setLoading] = useState(false) 
+    let navigate = useNavigate();
 
     const dispatch = useDispatch()
 
@@ -52,7 +54,10 @@ const Login = () => {
         })
         console.log(userData)
         dispatch(setLogged(userData.data))
-        localStorage.setItem('user-data', JSON.stringify({ token: userData.data.token }))
+        localStorage.setItem('user-data', JSON.stringify({ token: userData.data.token, 
+            name: userData.data.name,
+            user_id: userData.data.id }))
+        navigate('/todo')
         } catch (e) {
         const text = 'Error, please try again'
         Swal.fire({

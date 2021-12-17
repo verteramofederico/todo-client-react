@@ -1,7 +1,18 @@
-import {Nav, Navbar, Container} from "react-bootstrap"
+import { Button, Container, Nav, Navbar } from 'react-bootstrap/'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectUser, logOut } from '../store/userSlice'
+import { Link } from 'react-router-dom'
 
 function Header() {
-  return (
+    const dispatch = useDispatch()
+
+    const closeSesion = () => {
+        dispatch(logOut())
+    }
+
+    const user = useSelector(selectUser)
+    
+    return (
     <>
             <Navbar bg="light" expand="lg">
                 <Container>
@@ -12,6 +23,8 @@ function Header() {
                     <Nav className="me-auto">
                     <Nav.Link href="https://www.linkedin.com/in/federico-verteramo/" target="_blank">Developed by FV</Nav.Link>   
                     </Nav>
+                    {user.isAuthenticated ? <Button variant="outline-warning" onClick={closeSesion}>{`Cerrar Sesion de ${user.name}`}</Button>
+                    : ( <> {' '} <Button variant="outline-warning"><Link to="/login">Login</Link></Button></> )}
                 </Navbar.Collapse>               
                 </Container>
             </Navbar> 
