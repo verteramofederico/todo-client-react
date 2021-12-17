@@ -8,28 +8,19 @@ import Swal from 'sweetalert2'
 import sendRequest from '../httpClient'
 import { setLogged } from '../store/userSlice'
 import Loader from './Loader'
-import './Register.css'
-import WelcomeAlert from './WelcomeAlert'
 
-const Register = () => {
+const Login = () => {
     let changed = false
     const [isLoading, setLoading] = useState(false) 
 
     const dispatch = useDispatch()
 
     const validate = ({
-        name,
         email,
         password,
-        confirmPassword,
     }) => {
         const errors = {}
         changed = true
-        if (!name) {
-        errors.name = 'Enter your name'
-        } else if (!/^[a-zA-ZÀ-ÿ\s]{3,40}$/.test(name)) {
-        errors.name = 'Name must contain only letters, at least 3'
-        }
         if (!email) {
         errors.email = 'Enter your email'
         } else if (
@@ -45,20 +36,17 @@ const Register = () => {
         ) {
         errors.password = 'Password must contain only alphanumeric characters and at least 6'
         }
-        if (!confirmPassword) errors.confirmPassword = 'Please confirm your password'
-        if (confirmPassword !== password) errors.confirmPassword = 'Passwords must be equal'
         return errors
     }
 
     const handleOnSubmit = async (values, { resetForm }) => {
         try {
         const data = {
-            name: values.name,
             email: values.email,
         }
         const password = { password: values.password }
         setLoading(true)
-        const userData = await sendRequest('post', '/users', {
+        const userData = await sendRequest('post', '/users/login', {
             ...data,
             ...password,
         })
@@ -80,14 +68,10 @@ const Register = () => {
 
   return (
     <>
-        <WelcomeAlert/>
-
         <Formik
             initialValues={{
-            name: '',
             email: '',
             password: '',
-            confirmPassword: '',
             }}
             validate={validate}
             onSubmit={handleOnSubmit}>
@@ -101,24 +85,8 @@ const Register = () => {
             }) => (
             <Row className="m-0 justify-content-center min-vh-100 align-content-center">
                 <Col sm="6" md="4" lg="3" className="p-4 p-md-0">
-                <h1 className="text-center mb-4">Register</h1>
+                <h1 className="text-center mb-4">Login</h1>
                 <Form noValidate onSubmit={handleSubmit}>
-                    <Form.Group controlId="validationFormik01">
-                    <FloatingLabel label="Nombre" className="mb-3">
-                        <Form.Control
-                        type="text"
-                        placeholder="name"
-                        name="name"
-                        value={values.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        isInvalid={touched.name && !!errors.name}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                        {errors.name}
-                        </Form.Control.Feedback>
-                    </FloatingLabel>
-                    </Form.Group>
 
                     <Form.Group controlId="validationFormik01">
                     <FloatingLabel label="email" className="mb-3">
@@ -154,32 +122,13 @@ const Register = () => {
                     </FloatingLabel>
                     </Form.Group>
 
-                    <Form.Group controlId="validationFormik01">
-                    <FloatingLabel label="Confirm Password" className="mb-3">
-                        <Form.Control
-                        type="password"
-                        placeholder="Confirm Password"
-                        name="confirmPassword"
-                        value={values.confirmPassword}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        isInvalid={
-                            touched.confirmPassword && !!errors.confirmPassword
-                        }
-                        />
-                        <Form.Control.Feedback type="invalid">
-                        {errors.confirmPassword}
-                        </Form.Control.Feedback>
-                    </FloatingLabel>
-                    </Form.Group>
-
                     {Object.keys(errors).length === 0 && changed === true ? (
                     <button type="submit" className="btn btn-primary">
-                        Register
+                        Login
                     </button>
                     ) : (
                     <button type="submit" className="btn btn-primary" disabled>
-                        { isLoading ? <Loader visible={isLoading} width={20} height={20} className="" /> : 'Registrarse' }
+                        { isLoading ? <Loader visible={isLoading} width={20} height={20} className="" /> : 'Login' }
                     </button>
                     )}
                 </Form>
@@ -191,4 +140,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default Login
