@@ -8,6 +8,7 @@ import sendRequest from '../httpClient'
 import Loader from './Loader'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../store/userSlice'
+import './Todo.css'
 
 const TodoAdd = () => {
     let changed = false
@@ -32,7 +33,7 @@ const TodoAdd = () => {
             const userData = await sendRequest('post', '/todo', 
             {
             user_id: `${user.user_id}`,
-            title: "swing2"
+            title: title
             })
             console.log(userData)
         } catch (e) {
@@ -51,6 +52,7 @@ const TodoAdd = () => {
     return (
     <>
         <Formik
+            classname="formik"
             initialValues={{
             title: ''
             }}
@@ -64,7 +66,7 @@ const TodoAdd = () => {
             errors,
             touched,
             }) => (
-            <Row className="m-0 justify-content-center min-vh-100 align-content-center">
+            <Row className="justify-content-center align-content-center formik">
                 <Col sm="6" md="4" lg="3" className="p-4 p-md-0">
                 <h1 className="text-center mb-4">Add task</h1>
                 <Form noValidate onSubmit={handleSubmit}>

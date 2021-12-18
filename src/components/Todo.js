@@ -1,12 +1,12 @@
 import TodoAdd from './TodoAdd'
-import TodoList from './TodoList'
+import TodoContainer from './TodoContainer'
 
 function Todo() {
     
     return (
         <>
         <TodoAdd/>
-        <TodoList/>
+        <TodoContainer/>
         </>
         )
 }
