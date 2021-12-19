@@ -32,7 +32,7 @@ const TodoAdd = () => {
             setLoading(true)
             await sendRequest('post', '/todo', 
             {
-            user_id: `${user.user_id}`,
+            user_id: `${user.id}`,
             title: title
             })
         } catch (e) {

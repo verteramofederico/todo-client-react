@@ -53,7 +53,8 @@ const Login = () => {
             ...password,
         })
         dispatch(setLogged(userData.data))
-        localStorage.setItem('user-data', JSON.stringify({ token: userData.data.token, 
+        localStorage.setItem('user-data', JSON.stringify({ 
+            token: userData.data.token, 
             name: userData.data.name,
             user_id: userData.data.id }))
         navigate('/')
