@@ -68,7 +68,7 @@ const Register = () => {
         localStorage.setItem('user-data', JSON.stringify({ 
             token: userData.data.token, 
             name: userData.data.name, 
-            user_id: userData.data.id }))
+            id: userData.data.id }))
         navigate('/')
         } catch (e) {
         const text = 'Error, please try again'
