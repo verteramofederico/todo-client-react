@@ -2,6 +2,7 @@ import { Button, Container, Nav, Navbar } from 'react-bootstrap/'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectUser, logOut } from '../store/userSlice'
 import { Link } from 'react-router-dom'
+import React from 'react'
 
 function Header() {
     const dispatch = useDispatch()
