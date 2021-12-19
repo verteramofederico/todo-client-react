@@ -30,13 +30,13 @@ const TodoAdd = () => {
         try {
             let title = values.title;
             setLoading(true)
-            const userData = await sendRequest('post', '/todo', 
+            await sendRequest('post', '/todo', 
             {
             user_id: `${user.user_id}`,
             title: title
             })
-            console.log(userData)
         } catch (e) {
+        console.log(e)
         const text = 'Error, please try again'
         Swal.fire({
             icon: 'error',

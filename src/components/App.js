@@ -3,6 +3,8 @@ import Header from './Header'
 import Register from './Register'
 import Login from './Login'
 import Todo from './Todo'
+import RequireAuth from './RequireAuth'
+import RequireNotAuth from './RequireNotAuth'
 import { Routes, Route } from "react-router-dom"
 import { selectUser, setLogged } from '../store/userSlice'
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,6 +14,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const dispatch = useDispatch()
   const { isAuthenticated } = useSelector(selectUser)
+
   useEffect(() => {
     (async () => {
       const userData = JSON.parse(localStorage.getItem('user-data'))
@@ -19,7 +22,7 @@ function App() {
         try {
           dispatch(setLogged(userData))
         } catch (error) {
-          console.log(error)
+          throw error.message
         } finally {
           setIsLoading(false)
         }
@@ -33,9 +36,21 @@ function App() {
     <>
     <Header/>  
     <Routes>
-      <Route path="/" element={<Register />} />
-      <Route path="login" element={<Login />} />
-      <Route path="todo" element={<Todo />} />
+      <Route path="/" element={
+      <RequireAuth>
+      <Todo/>
+      </RequireAuth>
+      } />
+      <Route path="login" element={
+      <RequireNotAuth>
+      <Login />
+      </RequireNotAuth>
+      } />
+      <Route path="register" element={
+      <RequireNotAuth>
+      <Register />
+      </RequireNotAuth>
+    } />
     </Routes>
     </>
   );

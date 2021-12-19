@@ -52,12 +52,11 @@ const Login = () => {
             ...data,
             ...password,
         })
-        console.log(userData)
         dispatch(setLogged(userData.data))
         localStorage.setItem('user-data', JSON.stringify({ token: userData.data.token, 
             name: userData.data.name,
             user_id: userData.data.id }))
-        navigate('/todo')
+        navigate('/')
         } catch (e) {
         const text = 'Error, please try again'
         Swal.fire({

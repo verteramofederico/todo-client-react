@@ -64,13 +64,12 @@ const Register = () => {
             ...data,
             ...password,
         })
-        console.log(userData)
         dispatch(setLogged(userData.data))
         localStorage.setItem('user-data', JSON.stringify({ 
             token: userData.data.token, 
             name: userData.data.name, 
             user_id: userData.data.id }))
-        navigate('/todo')
+        navigate('/')
         } catch (e) {
         const text = 'Error, please try again'
         Swal.fire({
@@ -110,7 +109,7 @@ const Register = () => {
                 <h1 className="text-center mb-4">Register</h1>
                 <Form noValidate onSubmit={handleSubmit}>
                     <Form.Group controlId="validationFormik01">
-                    <FloatingLabel label="Nombre" className="mb-3">
+                    <FloatingLabel label="Name" className="mb-3">
                         <Form.Control
                         type="text"
                         placeholder="name"
@@ -127,7 +126,7 @@ const Register = () => {
                     </Form.Group>
 
                     <Form.Group controlId="validationFormik01">
-                    <FloatingLabel label="email" className="mb-3">
+                    <FloatingLabel label="Email" className="mb-3">
                         <Form.Control
                         type="email"
                         placeholder="email"

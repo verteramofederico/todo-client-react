@@ -31,8 +31,8 @@ function TodoContainer() {
     <Container>
         <Card className="text-center cardTodo">
             <Card.Body>
-            <Card.Title className="cardTitle">To complete</Card.Title>
-            <Table striped bordered hover size="sm">
+            <Card.Title className="cardTitle">To do:</Card.Title>
+            <Table>
             <thead>
                 <tr>
                 </tr>
